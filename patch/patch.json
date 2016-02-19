@@ -1,6 +1,6 @@
 {
-    "name": "No Carousel",
-    "description": "TODO",
+    "name": "No Home Carousel",
+    "description": "Disables the carousel on the homescreen",
     "category": "homescreen",
     "infos": {
         "maintainer": "cornerman"

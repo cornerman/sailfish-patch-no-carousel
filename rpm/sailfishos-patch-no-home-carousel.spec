@@ -1,6 +1,6 @@
-Name: sailfishos-patch-no-carousel
+Name: sailfishos-patch-no-home-carousel
 BuildArch: noarch
-Summary: TODO
+Summary: Disables the carousel on the homescreen
 Version: 0.0.1
 Release: 1
 Group: System/Patches
