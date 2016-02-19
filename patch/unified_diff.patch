@@ -119,7 +119,7 @@ index d0a17c6..45c86c0 100644
                  manager.reorderTimer.stop()
                  manager.stopScrolling()
 diff --git a/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml b/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml
-index 1c841d6..d0a87fa 100644
+index 1c841d6..2b491ae 100644
 --- a/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml
 @@ -12,7 +12,7 @@ import org.nemomobile.dbus 1.0
@@ -201,7 +201,7 @@ index 1c841d6..d0a87fa 100644
                          notification.actionInvoked("default")
                      }
 +
-+                    drag.target: !Lipstick.compositor.eventsLayer.housekeeping && hasRemovableMember ? memberItem : null
++                    drag.target: !Lipstick.compositor.eventsLayer.housekeeping && userRemovable ? memberItem : null
 +                    drag.axis: Drag.XAxis
 +                    drag.minimumX: 0
 +                    drag.maximumX: width
