@@ -11,4 +11,5 @@ Future plans:
 - Fix swiping app notification groups
 - Go to last app on left edge swipe in events and right edge swipe in switcher
 - Investigate swipable cover actions
+- Maybe separate switcher and events completely
 - Find new location for partnerspaces
