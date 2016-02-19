@@ -262,10 +262,10 @@ index 1c841d6..2b491ae 100644
              }
          }
 diff --git a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
-index 1d0f0f0..49acc1b 100644
+index 1d0f0f0..616c21e 100644
 --- a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
-@@ -208,6 +208,68 @@ EditableGridDelegate {
+@@ -208,6 +208,63 @@ EditableGridDelegate {
          }
      }
  
@@ -279,6 +279,8 @@ index 1d0f0f0..49acc1b 100644
 +        drag.maximumX: wrapper.x
 +
 +        property double dragDistance: wrapper.x - wrapper.contentItem.x
++        property double dragRatio: 2 * dragDistance / width
++        property int coverId
 +        property int oldZ
 +
 +        drag.onActiveChanged: {
@@ -293,13 +295,6 @@ index 1d0f0f0..49acc1b 100644
 +                    state = "default"
 +                }
 +            }
-+        }
-+
-+        Image {
-+            anchors.fill: parent
-+            opacity: switcherItemRoot.dragDistance / switcherItemRoot.width / 2
-+            visible: switcherItemRoot.drag.active
-+            source: "image://theme/icon-close-app?" + Theme.highlightColor
 +        }
 +
 +        state: "default"
@@ -334,7 +329,7 @@ index 1d0f0f0..49acc1b 100644
      LauncherIcon {
          size: Theme.iconSizeMedium
          anchors.centerIn: parent
-@@ -244,7 +306,7 @@ EditableGridDelegate {
+@@ -244,7 +301,7 @@ EditableGridDelegate {
      Rectangle {
          color: Theme.highlightBackgroundColor
          anchors.fill: parent
@@ -343,3 +338,13 @@ index 1d0f0f0..49acc1b 100644
          radius: windowPixmap.radius
          Behavior on opacity {
              enabled: !contentItem.pressed
+@@ -388,7 +445,8 @@ EditableGridDelegate {
+     Image {
+         id: closingGraphic
+         anchors.centerIn: parent
+-        visible: wrapper.closing
++        opacity: wrapper.closing ? 1 : switcherItemRoot.dragRatio
++        visible: wrapper.closing || switcherItemRoot.drag.active
+         source: "image://theme/graphic-close-app"
+         scale: wrapper.width / Theme.coverSizeLarge.width
+     }
