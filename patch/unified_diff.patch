@@ -262,10 +262,10 @@ index 1c841d6..d0a87fa 100644
              }
          }
 diff --git a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
-index 1d0f0f0..3a0b09c 100644
+index 1d0f0f0..49acc1b 100644
 --- a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
-@@ -208,6 +208,80 @@ EditableGridDelegate {
+@@ -208,6 +208,68 @@ EditableGridDelegate {
          }
      }
  
@@ -325,28 +325,16 @@ index 1d0f0f0..3a0b09c 100644
 +            }
 +        }
 +
-+        onClicked: {
-+            if (switcherRoot.closeApplicationEnabled) {
-+                switcherRoot.closeApplicationEnabled = false;
-+            } else if (running) {
-+                minimized = false
-+                Lipstick.compositor.windowToFront(wrapper.windowId)
-+            } else if (launcherItem) {
-+                // App is not running. Launch it now.
-+                launching = true
-+                minimized = false
-+                switcherRoot.launchingItem = wrapper
-+                launcherItem.launchApplication()
-+            }
++        Component.onCompleted: {
++            clicked.connect(wrapper.clicked)
++            pressAndHold.connect(wrapper.pressAndHold)
 +        }
-+
-+        onPressAndHold: switcherRoot.closeApplicationEnabled = true
 +    }
 +
      LauncherIcon {
          size: Theme.iconSizeMedium
          anchors.centerIn: parent
-@@ -244,7 +318,7 @@ EditableGridDelegate {
+@@ -244,7 +306,7 @@ EditableGridDelegate {
      Rectangle {
          color: Theme.highlightBackgroundColor
          anchors.fill: parent
