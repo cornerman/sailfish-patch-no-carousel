@@ -262,10 +262,19 @@ index 1c841d6..2b491ae 100644
              }
          }
 diff --git a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
-index 1d0f0f0..616c21e 100644
+index 1d0f0f0..a67b54c 100644
 --- a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
-@@ -208,6 +208,63 @@ EditableGridDelegate {
+@@ -28,7 +28,7 @@ EditableGridDelegate {
+     property bool windowMapPending
+     property int showingWid
+     property int columns: 1
+-    property bool closing: windowId != 0 && windowId == Lipstick.compositor.appLayer.closingWindowId
++    property bool closing: (windowId != 0 && windowId == Lipstick.compositor.appLayer.closingWindowId) || switcherItemRoot.drag.active
+     property bool running
+     property bool launching: pending
+     property bool pending
+@@ -208,6 +208,62 @@ EditableGridDelegate {
          }
      }
  
@@ -280,7 +289,6 @@ index 1d0f0f0..616c21e 100644
 +
 +        property double dragDistance: wrapper.x - wrapper.contentItem.x
 +        property double dragRatio: 2 * dragDistance / width
-+        property int coverId
 +        property int oldZ
 +
 +        drag.onActiveChanged: {
@@ -329,22 +337,11 @@ index 1d0f0f0..616c21e 100644
      LauncherIcon {
          size: Theme.iconSizeMedium
          anchors.centerIn: parent
-@@ -244,7 +301,7 @@ EditableGridDelegate {
-     Rectangle {
-         color: Theme.highlightBackgroundColor
-         anchors.fill: parent
--        opacity: ((currentApp && !Lipstick.compositor.homePeeking) || windowMapPending || launching || wrapper.closing) ? 0.4 : (contentItem.pressed ? Theme.highlightBackgroundOpacity : 0)
-+        opacity: ((currentApp && !Lipstick.compositor.homePeeking) || windowMapPending || launching || wrapper.closing || switcherItemRoot.drag.active) ? 0.4 : (contentItem.pressed ? Theme.highlightBackgroundOpacity : 0)
-         radius: windowPixmap.radius
-         Behavior on opacity {
-             enabled: !contentItem.pressed
-@@ -388,7 +445,8 @@ EditableGridDelegate {
+@@ -388,6 +444,7 @@ EditableGridDelegate {
      Image {
          id: closingGraphic
          anchors.centerIn: parent
--        visible: wrapper.closing
-+        opacity: wrapper.closing ? 1 : switcherItemRoot.dragRatio
-+        visible: wrapper.closing || switcherItemRoot.drag.active
++        opacity: switcherItemRoot.drag.active ? switcherItemRoot.dragRatio : 1
+         visible: wrapper.closing
          source: "image://theme/graphic-close-app"
          scale: wrapper.width / Theme.coverSizeLarge.width
-     }
