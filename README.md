@@ -6,9 +6,10 @@ Only tested with SailfishOS 2.0.1.7 and 2.0.2.48
 Disables the carousel on the homescreen by removing the left side of the events-view and the right side of the switcher-view.
 This allows swipe right to remove notifications in events and swipe left to close an app cover in switcher.
 
-Future plans:
-- Improve close indicator when swiping an app cover
+Issues:
 - Fix swiping app notification groups
+
+Future plans:
 - Go to last app on left edge swipe in events and right edge swipe in switcher
 - Investigate swipable cover actions
 - Maybe separate switcher and events completely
