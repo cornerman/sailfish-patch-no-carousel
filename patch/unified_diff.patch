@@ -1,9 +1,9 @@
 diff --git a/usr/share/lipstick-jolla-home-qt5/layers/HomeLayer.qml b/usr/share/lipstick-jolla-home-qt5/layers/HomeLayer.qml
-index 3aff868..9ee3ea9 100644
+index 188bdf3..d13ac72 100644
 --- a/usr/share/lipstick-jolla-home-qt5/layers/HomeLayer.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/layers/HomeLayer.qml
-@@ -38,7 +38,7 @@ Pannable {
-     readonly property real _minimizeThreshold: width * (1.0 - _minimizedScale) / 2
+@@ -43,7 +43,7 @@ Pannable {
+     readonly property bool _transposed: Lipstick.compositor.topmostWindowAngle % 180 != 0
  
      function partnerLayerForWindow(window) {
 -        for (var layer = switcherLayer.rightItem; layer != eventsLayer; layer = layer.rightItem) {
@@ -11,7 +11,7 @@ index 3aff868..9ee3ea9 100644
              if (JollaSystemInfo.isWindowForLauncherItem(window, layer.launcherItem)) {
                  return layer
              }
-@@ -47,7 +47,7 @@ Pannable {
+@@ -52,7 +52,7 @@ Pannable {
      }
  
      function activatePartnerWindow(launcherItem, launch) {
@@ -20,7 +20,7 @@ index 3aff868..9ee3ea9 100644
              if (!layer.launcherItem || layer.launcherItem.exec != launcherItem.exec) {
                  continue
              } else if (!layer.window.window && launch) {
-@@ -75,7 +75,7 @@ Pannable {
+@@ -81,7 +81,7 @@ Pannable {
  
      function _findNextLayer(launcherItem) {
          var index = partnerspaces.indexOf(launcherItem)
@@ -29,7 +29,7 @@ index 3aff868..9ee3ea9 100644
              if (layer.launcherItem && index < partnerspaces.indexOf(layer.launcherItem)) {
                  return layer
              }
-@@ -161,7 +161,7 @@ Pannable {
+@@ -189,7 +189,7 @@ Pannable {
  
              objectName: "eventsLayer"
  
@@ -38,7 +38,7 @@ index 3aff868..9ee3ea9 100644
              rightItem: switcherLayer
  
              width: homescreen.width
-@@ -169,7 +169,7 @@ Pannable {
+@@ -197,7 +197,7 @@ Pannable {
  
              visible: false
  
@@ -47,7 +47,7 @@ index 3aff868..9ee3ea9 100644
          },
          SwitcherLayer {
              id: switcherLayer
-@@ -189,7 +189,7 @@ Pannable {
+@@ -217,7 +217,7 @@ Pannable {
              objectName: "switcherLayer"
  
              leftItem:  eventsLayer
@@ -56,7 +56,7 @@ index 3aff868..9ee3ea9 100644
  
              width: homescreen.width
              height: homescreen.height
-@@ -214,7 +214,7 @@ Pannable {
+@@ -242,7 +242,7 @@ Pannable {
                  NumberAnimation { duration: 250; easing.type: Easing.OutQuad }
              }
  
@@ -65,7 +65,7 @@ index 3aff868..9ee3ea9 100644
          }
      ]
  
-@@ -243,7 +243,7 @@ Pannable {
+@@ -266,7 +266,7 @@ Pannable {
          onItemRemoved: {
              var apkdPackage = item.readValue("X-apkd-packageName")
  
@@ -74,7 +74,7 @@ index 3aff868..9ee3ea9 100644
                  if (layer.launcherItem == item) {
                      function cleanup() {
                          var left = layer.leftItem
-@@ -284,7 +284,7 @@ Pannable {
+@@ -306,7 +306,7 @@ Pannable {
              var i = count
              var firstMoved = eventsLayer
              var lastMoved = eventsLayer
@@ -84,10 +84,10 @@ index 3aff868..9ee3ea9 100644
                      if (layer.launcherItem == partnerspaces.get(index + i)) {
                          firstMoved = layer
 diff --git a/usr/share/lipstick-jolla-home-qt5/main/EditableGridDelegate.qml b/usr/share/lipstick-jolla-home-qt5/main/EditableGridDelegate.qml
-index d0a17c6..45c86c0 100644
+index c5e65e3..c0cd3e9 100644
 --- a/usr/share/lipstick-jolla-home-qt5/main/EditableGridDelegate.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/main/EditableGridDelegate.qml
-@@ -117,11 +117,14 @@ Item {
+@@ -100,11 +100,14 @@ Item {
      MouseArea {
          id: delegateContentItem
  
@@ -102,7 +102,7 @@ index d0a17c6..45c86c0 100644
                  z = 1000
                  reordering = true
                  dragged = true
-@@ -130,6 +133,7 @@ Item {
+@@ -113,6 +116,7 @@ Item {
          }
  
          function doReordering() {
@@ -110,7 +110,7 @@ index d0a17c6..45c86c0 100644
              wrapper.reorder(_newIndex, _newFolderIndex)
              _newIndex = -1
          }
-@@ -139,6 +143,7 @@ Item {
+@@ -122,6 +126,7 @@ Item {
                  manager.startReorderTimer.stop()
              }
              if (reordering) {
@@ -119,10 +119,10 @@ index d0a17c6..45c86c0 100644
                  manager.reorderTimer.stop()
                  manager.stopScrolling()
 diff --git a/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml b/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml
-index 1c841d6..2b491ae 100644
+index 86be188..a8fd10a 100644
 --- a/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/notifications/NotificationItem.qml
-@@ -12,7 +12,7 @@ import org.nemomobile.dbus 1.0
+@@ -12,7 +12,7 @@ import org.nemomobile.dbus 2.0
  import com.jolla.lipstick 0.1
  import org.nemomobile.lipstick 0.1
  
@@ -131,7 +131,7 @@ index 1c841d6..2b491ae 100644
      id: root
  
      property alias showApplicationName: groupHeader.showName
-@@ -59,6 +59,64 @@ Item {
+@@ -61,6 +61,65 @@ Item {
      width: parent.width
      height: group.y + group.height
  
@@ -193,10 +193,11 @@ index 1c841d6..2b491ae 100644
 +        }
 +    ]
 +
-     DBusInterface {
-         id: dbusInvoker
-     }
-@@ -179,6 +237,64 @@ Item {
++
+     NotificationGroupHeader {
+         id: groupHeader
+ 
+@@ -177,6 +236,64 @@ Item {
                      onTriggered: {
                          notification.actionInvoked("default")
                      }
@@ -262,7 +263,7 @@ index 1c841d6..2b491ae 100644
              }
          }
 diff --git a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
-index 1d0f0f0..a67b54c 100644
+index b6c281a..41f7498 100644
 --- a/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
 +++ b/usr/share/lipstick-jolla-home-qt5/switcher/SwitcherItem.qml
 @@ -28,7 +28,7 @@ EditableGridDelegate {
@@ -274,7 +275,7 @@ index 1d0f0f0..a67b54c 100644
      property bool running
      property bool launching: pending
      property bool pending
-@@ -208,6 +208,62 @@ EditableGridDelegate {
+@@ -191,6 +191,62 @@ EditableGridDelegate {
          }
      }
  
@@ -337,11 +338,11 @@ index 1d0f0f0..a67b54c 100644
      LauncherIcon {
          size: Theme.iconSizeMedium
          anchors.centerIn: parent
-@@ -388,6 +444,7 @@ EditableGridDelegate {
+@@ -374,6 +430,7 @@ EditableGridDelegate {
      Image {
          id: closingGraphic
          anchors.centerIn: parent
-+        opacity: switcherItemRoot.drag.active ? switcherItemRoot.dragRatio : 1
++        opacity: switcherItemRoot.drag.active ? switcherItemRoot.dragRatio : 1.0
          visible: wrapper.closing
          source: "image://theme/graphic-close-app"
          scale: wrapper.width / Theme.coverSizeLarge.width
